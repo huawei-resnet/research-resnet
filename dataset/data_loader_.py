@@ -3,7 +3,7 @@ import torchvision
 import torch
 import torchvision.transforms as transforms
 from torch.utils.data.sampler import SubsetRandomSampler
-import config_
+import config.config_
 
 class CIFAR10Data(object):
     def __init__(self, train_split=0.9):
