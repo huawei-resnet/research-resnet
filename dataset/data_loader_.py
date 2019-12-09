@@ -3,7 +3,7 @@ import torchvision
 import torch
 import torchvision.transforms as transforms
 from torch.utils.data.sampler import SubsetRandomSampler
-import config.config_
+from config.config_ import mean, std
 
 class CIFAR10Data(object):
     def __init__(self, train_split=0.9):
@@ -11,11 +11,11 @@ class CIFAR10Data(object):
             transforms.RandomCrop(size=(32, 32), padding=4),
             transforms.RandomHorizontalFlip(),
             transforms.ToTensor(),
-            transforms.Normalize(mean=config_.mean, std=config_.std)
+            transforms.Normalize(mean=mean, std=std)
         ])
         val_transform = transforms.Compose([
             transforms.ToTensor(),
-            transforms.Normalize(mean=config_.mean, std=config_.std)
+            transforms.Normalize(mean=mean, std=std)
         ])
         test_transform = val_transform
         train_dataset = torchvision.datasets.CIFAR10(root='./data', train=True, download=True, transform=train_transform)
