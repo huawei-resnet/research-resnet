@@ -5,7 +5,7 @@ import matplotlib.pyplot as plt
 from tqdm import tqdm
 import torchnet as tnt
 from torchnet.engine import Engine
-from data_loader_ import CIFAR10Data
+from dataset.data_loader_ import CIFAR10Data
 # from torchnet.logger import VisdomLogger, VisdomPlotLogger
 
 
