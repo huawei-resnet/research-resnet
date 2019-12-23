@@ -25,6 +25,7 @@ def plot_history(history):
     plt.legend(['train', 'test'], loc='upper left')
     plt.show()
 
+
     plt.plot(history['train_acc'])
     plt.plot(history['val_acc'])
     plt.xlabel('epoch')
