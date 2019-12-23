@@ -78,16 +78,16 @@ class _ResNet(nn.Module):
         return y
 
 
-def resnet20():
+def resnet10_20():
     return _ResNet(num_layer_stack=3)
 
 
-def resnet32():
+def resnet10_32():
     return _ResNet(num_layer_stack=5)
 
 
-def resnet56():
+def resnet10_56():
     return _ResNet(num_layer_stack=9)
 
-def resnet110():
+def resnet10_110():
     return _ResNet(num_layer_stack=18)
