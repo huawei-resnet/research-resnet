@@ -5,7 +5,7 @@ import matplotlib.pyplot as plt
 from tqdm import tqdm
 import torchnet as tnt
 from torchnet.engine import Engine
-from dataset.data_loader_ import CIFAR10Data
+from dataset.data_loader_ import CIFAR10Data, CIFAR100Data
 # from torchnet.logger import VisdomLogger, VisdomPlotLogger
 
 
@@ -38,14 +38,18 @@ def plot_history(history):
     plt.show()
 
 
-def main(model, opt, epoch, loss_fn=F.cross_entropy, lr_scheduler=None):
+def main(model, num_classes, opt, epoch, loss_fn=F.cross_entropy, lr_scheduler=None):
     """
     train model and test on test data
     :return:
     """
-    num_classes = 10
+    # num_classes = 10
 
-    data = CIFAR10Data(train_split=0.8)
+    if num_classes == 10:
+        data = CIFAR10Data(train_split=0.8)
+    else:
+        data = CIFAR100Data(train_split=0.8)
+
     train_itr = data.get_train_loader(batch_size=64)
     val_itr = data.get_val_loader(batch_size=64)
 
