@@ -44,7 +44,7 @@ class _BasicBlock(nn.Module):
 
 class _ResNet(nn.Module):
 #     def __init__(self, num_layer_stack):
-    def __init__(self, layers_num):
+    def __init__(self, layers_num, out_f):
         
         # define resnet_n
         num_layer_stack = int((layers_num - 2) / 6)
@@ -55,7 +55,7 @@ class _ResNet(nn.Module):
         self.layer2 = self.__make_layers(num_layer_stack, in_channels=16, out_channels=32, downscale=True)
         self.layer3 = self.__make_layers(num_layer_stack, in_channels=32, out_channels=64, downscale=True)
         self.avgpool = nn.AvgPool2d(kernel_size=8, stride=1)
-        self.fc = nn.Linear(in_features=64, out_features=10)
+        self.fc = nn.Linear(in_features=64, out_features=out_f)
 
         # for m in self.modules():
         #     if isinstance(m, nn.Conv2d):
@@ -82,8 +82,8 @@ class _ResNet(nn.Module):
         y = self.fc(y)
         return y
 
-def resnet_n(layers_num):
-        return _ResNet(layers_num)
+def resnet_n(layers_num, out_f):
+        return _ResNet(layers_num, out_f)
     
 # def resnet10_20():
 #     return _ResNet(num_layer_stack=3)
