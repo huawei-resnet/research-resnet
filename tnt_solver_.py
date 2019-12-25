@@ -6,7 +6,6 @@ from tqdm import tqdm
 import torchnet as tnt
 from torchnet.engine import Engine
 from dataset.data_loader_ import CIFAR10Data, CIFAR100Data
-# from torchnet.logger import VisdomLogger, VisdomPlotLogger
 
 
 def count_parameters(model):
@@ -38,8 +37,8 @@ def plot_history(history):
     plt.ylabel('Train LR')
     plt.show()
 
-
-def main(model, num_classes, opt, epoch, loss_fn=F.cross_entropy, lr_scheduler=None):
+# add used part of data
+def main(model, num_classes, opt, epoch, loss_fn=F.cross_entropy, lr_scheduler=None, data_part=0.8, mini_batch = 64): # trying to override function
     """
     train model and test on test data
     :return:
@@ -47,33 +46,17 @@ def main(model, num_classes, opt, epoch, loss_fn=F.cross_entropy, lr_scheduler=N
     # num_classes = 10
 
     if num_classes == 10:
-        data = CIFAR10Data(train_split=0.8)
+        data = CIFAR10Data(train_split=data_part)#0.8)
     else:
-        data = CIFAR100Data(train_split=0.8)
+        data = CIFAR100Data(train_split=data_part)#0.8)
 
-    train_itr = data.get_train_loader(batch_size=64)
-    val_itr = data.get_val_loader(batch_size=64)
+    train_itr = data.get_train_loader(batch_size=mini_batch)#64)
+    val_itr = data.get_val_loader(batch_size=mini_batch)#64)
 
     meter_loss = tnt.meter.AverageValueMeter()
     classacc = tnt.meter.ClassErrorMeter(accuracy=True)
     confusion_meter = tnt.meter.ConfusionMeter(num_classes, normalized=True)
     history = {'train_loss': [], 'train_acc': [], 'train_lr': [], 'val_loss': [], 'val_acc': []}
-
-#     port = 8097
-#     env = 'CIFAR10'
-#     train_loss_logger = VisdomPlotLogger(
-#         'line', env=env, port=port, opts={'title': 'Train Loss'})
-#     train_err_logger = VisdomPlotLogger(
-#         'line', env=env, port=port, opts={'title': 'Train Acc'})
-#     test_loss_logger = VisdomPlotLogger(
-#         'line', env=env, port=port, opts={'title': 'Test Loss'})
-#     test_err_logger = VisdomPlotLogger(
-#         'line', env=env, port=port, opts={'title': 'Test Acc'})
-#     lr_logger = VisdomPlotLogger(
-#         'line', env=env, port=port, opts={'title': 'Train LR'})
-#     confusion_logger = VisdomLogger('heatmap', port=port, env=env, opts={'title': 'Confusion matrix',
-#                                                                 'columnnames': list(range(num_classes)),
-#                                                                 'rownames': list(range(num_classes))})
 
     torch.manual_seed(6666)
     torch.cuda.manual_seed(6666)
