@@ -12,14 +12,14 @@ import torch.nn.functional as F
 from models.resnet_n import resnet_n
 from tnt_solver_ import *
 
-def auto_resnet(layer_j, class_i, lr_x, epoch_x, history, data_part=0.8, mini_batch = 64):
+def auto_resnet(layer_j, class_i, lr_x, epoch_x, history, data_part=0.8, mini_batch = 64, conv_num = 2, skip_conn = False):
 #     history = [] # ??
-    model = resnet_n(layer_j, class_i)
+    model = resnet_n(layer_j, class_i, conv_num, skip_conn)
     print(model)
-    opt = optim.SGD(model.parameters(), lr = lr_x * 1e-1, momentum=0.9, weight_decay=1e-4, nesterov=False)
-    lr_scheduler= optim.lr_scheduler.MultiStepLR(opt, milestones=[91, 137], gamma=0.1) # ??
-    loss_fn = F.cross_entropy
-    history.append(main(model, class_i, opt, epoch_x, loss_fn=loss_fn, lr_scheduler=lr_scheduler, data_part=data_part, mini_batch=mini_batch)) # ??
+#     opt = optim.SGD(model.parameters(), lr = lr_x * 1e-1, momentum=0.9, weight_decay=1e-4, nesterov=False)
+#     lr_scheduler= optim.lr_scheduler.MultiStepLR(opt, milestones=[91, 137], gamma=0.1) # ??
+#     loss_fn = F.cross_entropy
+#     history.append(main(model, class_i, opt, epoch_x, loss_fn=loss_fn, lr_scheduler=lr_scheduler, data_part=data_part, mini_batch=mini_batch)) # ??
     
 
     
