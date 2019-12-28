@@ -47,13 +47,13 @@ class _ResNet(nn.Module):
     def __init__(self, layers_num, out_f):
         
         # define resnet_n
-        num_layer_stack = int((layers_num - 2) / 6)
+        # num_layer_stack = int((layers_num - 2) / 6)
         
         super(_ResNet, self).__init__()
         self.conv1 = _conv2d_bn_relu(in_channels=3, out_channels=16, kernel_size=3, stride=1, padding=1)
-        self.layer1 = self.__make_layers(num_layer_stack, in_channels=16, out_channels=16, downscale=False)
-        self.layer2 = self.__make_layers(num_layer_stack, in_channels=16, out_channels=32, downscale=True)
-        self.layer3 = self.__make_layers(num_layer_stack, in_channels=32, out_channels=64, downscale=True)
+        self.layer1 = self.__make_layers(layers_num[0], in_channels=16, out_channels=16, downscale=False)
+        self.layer2 = self.__make_layers(layers_num[1], in_channels=16, out_channels=32, downscale=True)
+        self.layer3 = self.__make_layers(layers_num[2], in_channels=32, out_channels=64, downscale=True)
         self.avgpool = nn.AvgPool2d(kernel_size=8, stride=1)
         self.fc = nn.Linear(in_features=64, out_features=out_f)
 
