@@ -100,20 +100,6 @@ class _ResNet(nn.Module):
 
 def resnet_n(layers_num, out_f, conv_num = 2, skip_conn = False):
         return _ResNet(layers_num, out_f, conv_num, skip_conn)
-    
-# def resnet10_20():
-#     return _ResNet(num_layer_stack=3)
-
-
-# def resnet10_32():
-#     return _ResNet(num_layer_stack=5)
-
-
-# def resnet10_56():
-#     return _ResNet(num_layer_stack=9)
-
-# def resnet10_110():
-#     return _ResNet(num_layer_stack=18)
 
 # 6x + 2 = layers, x = num_layer_stack to define model
 # x = (layers - 2) / 6
