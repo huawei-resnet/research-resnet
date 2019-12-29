@@ -59,12 +59,7 @@ class _BasicBlock(nn.Module):
         return out
 
 class _ResNet(nn.Module):
-#     def __init__(self, num_layer_stack):
     def __init__(self, layers_num, out_f, conv_num, skip_conn):
-        
-        # define resnet_n
-        # num_layer_stack = int((layers_num - 2) / 6)
-        
         super(_ResNet, self).__init__()
         self.conv1 = _conv2d_bn_relu(in_channels=3, out_channels=16, kernel_size=3, stride=1, padding=1)
         self.layer1 = self.__make_layers(layers_num[0], in_channels=16, out_channels=16, conv_num=conv_num, skip_conn=skip_conn, downscale=False)
@@ -72,14 +67,6 @@ class _ResNet(nn.Module):
         self.layer3 = self.__make_layers(layers_num[2], in_channels=32, out_channels=64, conv_num=conv_num, skip_conn=skip_conn, downscale=True)
         self.avgpool = nn.AvgPool2d(kernel_size=8, stride=1)
         self.fc = nn.Linear(in_features=64, out_features=out_f)
-
-        # for m in self.modules():
-        #     if isinstance(m, nn.Conv2d):
-        #         n = m.kernel_size[0] * m.kernel_size[1] * m.out_channels
-        #         m.weight.data.normal_(0, math.sqrt(2. / n))
-        #     elif isinstance(m, nn.BatchNorm2d):
-        #         m.weight.data.fill_(1)
-        #         m.bias.data.zero_()
 
     def __make_layers(self, num_layer_stack, in_channels, out_channels, conv_num, skip_conn, downscale):
         layers = []
