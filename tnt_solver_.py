@@ -7,11 +7,6 @@ import torchnet as tnt
 from torchnet.engine import Engine
 from dataset.data_loader_ import CIFAR10Data, CIFAR100Data
 
-
-def count_parameters(model):
-    return sum(p.numel() for p in model.parameters() if p.requires_grad)
-
-
 def plot_history(history):
     """
     plot loss and acc history.
@@ -89,13 +84,9 @@ def main(model, num_classes, opt, epoch, loss_fn=F.cross_entropy, lr_scheduler=N
         reset_meters()
         model.train(True)
         state['iterator'] = tqdm(state['iterator'], file=sys.stdout)
-#         lr_logger.log(state['epoch'], current_lr)
         history['train_lr'].append(current_lr)
 
     def on_end_epoch(state):
-        # print('Training loss: %.4f, accuracy: %.2f%%' % (meter_loss.value()[0], classerr.value()[0]))
-#         train_loss_logger.log(state['epoch'], meter_loss.value()[0])
-#         train_err_logger.log(state['epoch'], classacc.value()[0])
         history['train_loss'].append(meter_loss.value()[0])
         history['train_acc'].append(classacc.value()[0])
 
@@ -110,10 +101,6 @@ def main(model, num_classes, opt, epoch, loss_fn=F.cross_entropy, lr_scheduler=N
                 lr_scheduler.step(classacc.value()[0], epoch=(epoch+1))
             else:
                 lr_scheduler.step()
-
-#         test_loss_logger.log(state['epoch'], meter_loss.value()[0])
-#         test_err_logger.log(state['epoch'], classacc.value()[0])
-#         confusion_logger.log(confusion_meter.value())
         history['val_loss'].append(meter_loss.value()[0])
         history['val_acc'].append(classacc.value()[0])
 
