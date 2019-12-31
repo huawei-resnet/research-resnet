@@ -13,7 +13,7 @@ def auto_resnet(layer_j, class_i, lr_x, epoch_x, history, data_part=0.8, mini_ba
 
 # TODO: Should be removed due to duplication with def auto_resnet(...)
 # Found this issue too late to solve with accuracy for all call locations
-def auto_resnet_opt_task1_epochs_multiplier(layer_j, class_i, lr_x, epoch_x, history, milestones = [91, 137], data_part=0.8, mini_batch = 64, conv_num = 2, skip_conn = False):
+def auto_resnet_opt_task1_epochs_multiplier(layer_j, class_i, lr_x, epoch_x, history, milestones, data_part=0.8, mini_batch = 64, conv_num = 2, skip_conn = False):
     model = resnet_n(layer_j, class_i, conv_num, skip_conn)
     print(model)
     opt = optim.SGD(model.parameters(), lr = lr_x * 1e-1, momentum=0.9, weight_decay=1e-4, nesterov=False)
