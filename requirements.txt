@@ -1,5 +1,2 @@
 torchnet==0.0.4
 tqdm==4.40.1
-pandas==0.25.3
-scikit-learn==0.22
-Keras==2.3.1
