@@ -1,6 +1,6 @@
 # Coding Project: Deep Learning Basics
 
-## Authors: Sergey Malyshev (@Shampooh) and Rufina Abdurakhmanova (@rufa-a)
+## Authors: Sergey Malyshev (@almashell) and Rufina Abdurakhmanova (@rufa-a)
 
 Report: https://docs.google.com/document/d/1w1aSqwVUBwqqlS2jmD9E1JlC2sRMbzZ46THrhsWB_EQ/
 
